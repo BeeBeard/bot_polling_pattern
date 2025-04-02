@@ -37,12 +37,9 @@ class BotConfig(ConfigBase):
     ip: Optional[str] = ""                  # ip на хост где висит webhook бота
     host: Optional[str] = ""                # Ссылка на хост где висит webhook бота
     port: Optional[int] = ""                # Порт для бота
-    webhook: Optional[str] = ""             # Путь к директории webhook бота
+    root: Optional[str] = ""                # Путь к директории webhook бота
     secret: Optional[SecretStr] = ""        # "секрет" для безопасности webhook
-
-    @computed_field
-    def path(self) -> str:
-        return self.host + self.webhook
+    webhook: str = ""
 
 
 class MiniAppConfig(ConfigBase):
@@ -53,6 +50,7 @@ class MiniAppConfig(ConfigBase):
     port: Optional[int] = None          # Порт для miniapp бота
     root: Optional[str] = ""            # Путь к директории miniapp бота
     secret: Optional[SecretStr] = ""    # "секрет" для безопасности miniapp
+    # path: str = ""
 
     @computed_field
     def path(self) -> str:
@@ -67,6 +65,7 @@ class ApiConfig(ConfigBase):
     root: Optional[str] = ""            # Путь к директории API
     secret: Optional[SecretStr] = ""    # "секрет" для безопасности API
     version: Optional[str] = ""         # Версия API
+    # path: str = ""
 
     @computed_field
     def path(self) -> str:
@@ -103,9 +102,20 @@ class Config(BaseSettings):
     def load(cls) -> "Config":
         return cls()
 
+    def set_bot_path(self):
+        self.bot.webhook = self.bot.host + self.project.root + self.bot.root
 
-# if __name__ == "__main__":
-#     # main()
+    def set_api_path(self):
+        port = f":{self.api.port}" if self.api.port else ""
+        self.api.path = self.api.ip + port + self.project.root + self.api.root + self.api.version
+
+    def set_miniapp_path(self):
+        self.miniapp.path = self.miniapp.host + self.project.root + self.miniapp.root
+
+    def __init__(self, **data):
+        super().__init__(**data)
+        self.set_bot_path()
+
 
 CONFIG = Config()
 # pprint.pprint(CONFIG.model_dump())
