@@ -66,12 +66,12 @@ def main():
     try:
 
         logger.info(f"Запуск API-server")
-        logger.info(f"IP: {CONFIG.api.host}")
+        logger.info(f"IP: {CONFIG.api.ip}")
         logger.info(f"PORT: {CONFIG.api.port}")
         uvicorn.run(
             app="start_app:APP",
             # app=APP,
-            host=CONFIG.api.host,
+            host=CONFIG.api.ip,
             port=CONFIG.api.port,
             # root_path=CONFIG.project.root,
             log_level="debug",
