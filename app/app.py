@@ -19,11 +19,12 @@ async def lifespan(myapp: FastAPI):  # type: ignore
 
     logger.info(f"Запуск Fast API")
     logger.info(f"Документация: {CONFIG.api.host}:{CONFIG.api.port}{CONFIG.project.root}/docs#")
-    logger.info(f"Webhook: {CONFIG.bot.path}")
+    webhook = f"{CONFIG.api.host}{CONFIG.project.root}{CONFIG.bot.path}"
+    logger.info(f"Webhook: {webhook}")
 
     try:
         await BOT.b.set_webhook(
-            url=CONFIG.bot.path,
+            url=webhook,
             allowed_updates=DP.resolve_used_update_types(),
             drop_pending_updates=True,
             secret_token=CONFIG.bot.secret.get_secret_value()
