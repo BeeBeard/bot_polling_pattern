@@ -20,7 +20,7 @@ r_any = Router(name="r_private_any")
 
 # отработка команд
 async def cmd_start(message: Message) -> None:
-
+    logger.info(message)
     await message.answer(message.text)
 
 
@@ -81,7 +81,8 @@ async def cmd_start(message: Message) -> None:
 
 
 # Отработка вводимых команд
-r_any.message.register(cmd_start, Command("start"))
+# r_any.message.register(cmd_start, Command("start"))
+r_any.message.register(cmd_start)
 
 
 # отработка нажатий кнопок в сообщениях
