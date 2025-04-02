@@ -11,16 +11,17 @@ from loguru import logger
 load_dotenv()
 
 r_any = Router(name="r_private_any")
+r_any.message.filter(F.chat.type.in_({"private"}))
 
 
-# отработка команд
-async def cmd_start(message: Message) -> None:
-    logger.info(message)
-    await message.answer(message.text)
+# Отработка команд
+async def echo(message: Message) -> None:
+    user = message.from_user.username or message.from_user.first_name
+    await message.answer(f"{user}, Вы написали в ЛС ({message.chat.type}) чат боту")
 
 # Отработка вводимых команд
-r_any.message.register(cmd_start, Command("start"))
-# r_any.message.register(cmd_start)
+# r_any.message.register(cmd_start, Command("start"))
+r_any.message.register(echo)
 
 
 # отработка нажатий кнопок в сообщениях
