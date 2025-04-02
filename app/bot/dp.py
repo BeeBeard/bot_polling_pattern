@@ -2,8 +2,7 @@ from aiogram import Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 from loguru import logger
 
-# from app.bot.middleware import Tform
-# from app.bot.routers import r_cmd, r_private_all
+from app.bot.middleware import CallForm
 from app.bot.routers import r_private, r_group, r_final
 
 
@@ -12,7 +11,7 @@ logger.info(f"Инициируем диспетчер")
 DP = Dispatcher(storage=MemoryStorage())    # Инициируем диспетчер
 
 # Подключаем middleware который будет выдавать Tform
-# DP.callback_query.middleware.register(Tform())
+DP.callback_query.middleware.register(CallForm())
 
 # Список подключаемых роутеров
 routers = [
