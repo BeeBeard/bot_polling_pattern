@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
 
-from app.api.healthcheck import r_healthcheck
+from app.api import r_healthcheck, r_bot_webhook
 
 from app.bot import BOT, DP
 from config import CONFIG
@@ -57,9 +57,8 @@ APP.add_middleware(
     allow_headers=["*"],
 )
 
-# APP.include_router(router=r_webhook)
-# APP.include_router(router=r_google_rest)
-APP.include_router(router=r_healthcheck)
+APP.include_router(router=r_bot_webhook)    # Webhook для приема данных от API telegram
+APP.include_router(router=r_healthcheck)    # router для проверки состояния приложения
 
 if __name__ == "__main__":
     pass
