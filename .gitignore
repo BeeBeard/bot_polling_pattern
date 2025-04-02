@@ -2,6 +2,7 @@
 /venv
 /logs
 *.txt
+!requirements.txt
 *.json
 **/__pycache__/
 app/__pycache__/
