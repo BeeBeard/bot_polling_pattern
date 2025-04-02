@@ -17,11 +17,12 @@ DP = Dispatcher(storage=MemoryStorage())    # Инициируем диспет�
 # Список подключаемых роутеров
 routers = [
     r_private.r_any,
-    r_group.r_any
+    # r_group.r_any
 ]
 
 router_names = "\n".join([i.name for i in routers])
 logger.info(f'Подключаем роутеры:\n{router_names}')
+
 
 
 DP.include_routers(*routers)    # Подключаем роутеры
