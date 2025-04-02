@@ -19,7 +19,7 @@ async def lifespan(myapp: FastAPI):  # type: ignore
 
     logger.info(f"Запуск Fast API")
     logger.info(f"Документация: {CONFIG.api.host}:{CONFIG.api.port}{CONFIG.project.root}/docs#")
-    webhook = f"{CONFIG.api.host}{CONFIG.project.root}{CONFIG.bot.path}"
+    webhook = f"{CONFIG.api.host}{CONFIG.project.root}{CONFIG.bot.webhook}"
     logger.info(f"Webhook: {webhook}")
 
     try:
@@ -30,13 +30,13 @@ async def lifespan(myapp: FastAPI):  # type: ignore
             secret_token=CONFIG.bot.secret.get_secret_value()
         )
 
-        logger.info(f"Подключил веб-хук: {CONFIG.bot.path}")
+        logger.info(f"Подключил веб-хук: {webhook}")
         yield  # Приложение работает
 
         # Код, выполняющийся при завершении работы приложения
 
         await BOT.b.delete_webhook()
-        logger.info(f"Отключил веб-хук: {CONFIG.bot.path}")
+        logger.info(f"Отключил веб-хук: {webhook}")
         logger.info(f"Остановка Fast API")
     except Exception as e:
         logger.error(e)
