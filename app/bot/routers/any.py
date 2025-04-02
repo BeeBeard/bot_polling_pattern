@@ -22,10 +22,11 @@ async def cmd_start(message: Message) -> None:
     await message.answer(f"{user}, Вы вызвали команду /start в r_final_any роутере ({message.chat.type})")
 
 
-r_any.message.register(echo)
-
 # Отработка вводимых команд
 r_any.message.register(cmd_start, Command("start"))
+
+r_any.message.register(echo)
+
 
 if __name__ == '__main__':
     pass
