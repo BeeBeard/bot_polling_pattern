@@ -19,8 +19,8 @@ async def cmd_start(message: Message) -> None:
     await message.answer(message.text)
 
 # Отработка вводимых команд
-# r_any.message.register(cmd_start, Command("start"))
-r_any.message.register(cmd_start)
+r_any.message.register(cmd_start, Command("start"))
+# r_any.message.register(cmd_start)
 
 
 # отработка нажатий кнопок в сообщениях
