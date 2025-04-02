@@ -1,12 +1,13 @@
-# import pprint
-
 from aiogram import F
 from aiogram import Router
 from aiogram.filters import Command
-from aiogram.types import Message  # CallbackQuery
+from aiogram.types import Message, CallbackQuery
 from dotenv import load_dotenv
-# from loguru import logger
-from app.bot.content import BotKeyboards
+
+from app.assistant import Transform
+from app.bot.content import BotKeyboards, Cmd
+from app.bot.filters import IsCallCmd
+
 
 load_dotenv()
 
@@ -27,21 +28,18 @@ async def cmd_start(message: Message) -> None:
         reply_markup=BotKeyboards.test_menu()
     )
 
+async def after_click_cmd_test(callback: CallbackQuery, tform: Transform) -> None:
+    await callback.message.answer(text=f"Отработка нажатия кнопки в ЛС cmd:{tform.cmd}")
 
 # Отработка вводимых команд
 r_any.message.register(cmd_start, Command("start"))
 
-r_any.message.register(echo)
-
-# отработка нажатий кнопок в сообщениях
-# r_private_all.callback_query.register(after_click_show_events,              IsCallCmd(Cmd.show_events))
-# r_private_all.callback_query.register(after_click_delete_event,             IsCallCmd(Cmd.delete_event))
-# r_private_all.callback_query.register(after_click_confirm_delete_event,     IsCallCmd(Cmd.confirm_delete_event))
-# r_private_all.callback_query.register(after_click_dismiss_delete_event,     IsCallCmd(Cmd.dismiss_delete_event))
-# r_private_all.callback_query.register(after_click_add_user,                 IsCallCmd(Cmd.invite_url))
-# r_private_all.callback_query.register(after_click_empty,                    IsCallCmd(Cmd.empty))
+# Отработка нажатий кнопок в сообщениях
+r_any.callback_query.register(after_click_cmd_test,              IsCallCmd(Cmd.cmd_test))
 
 # Отработка обычных кнопок
+r_any.message.register(echo)
+
 # r_private_all.message.register(kb_show_events, F.text == KeyWords.show_events)
 
 
