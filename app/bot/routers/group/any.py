@@ -32,6 +32,7 @@ async def cmd_start(message: Message) -> None:
 
 
 async def after_click_cmd_test(callback: CallbackQuery, tform: Transform) -> None:
+    await callback.answer()
     await callback.message.answer(text=f"Отработка нажатия кнопки в r_group_any cmd:{tform.cmd}")
 
 
