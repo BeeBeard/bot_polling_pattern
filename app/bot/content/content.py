@@ -39,7 +39,7 @@ class BotKeyboards:
     """Класс для создания клавиатур"""
 
     @staticmethod
-    def test_menu() -> InlineKeyboardMarkup:  # Клавиатура управления ботом
+    def test_menu() -> InlineKeyboardMarkup:  # Клавиатура под сообщением ботом
 
         event_menu = InlineKeyboardBuilder()
         # event_menu.button(text=KeyWords.key_word1, web_app=WebAppInfo(url=os.path.join(S.CALABRA_FRONT, S.ENDPOINT_CREATE_EVENT, )))
