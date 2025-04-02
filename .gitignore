@@ -1,0 +1,12 @@
+.env
+/venv
+/logs
+*.txt
+*.json
+**/__pycache__/
+app/__pycache__/
+app/api/__pycache__/
+app/bot/__pycache__/
+app/classes/__pycache__/
+app/conn/__pycache__/
+app/models/__pycache__/ 
