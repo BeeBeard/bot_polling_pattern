@@ -15,10 +15,17 @@ r_any.message.filter(F.chat.type.in_({"group", "supergroup"}))
 
 async def echo(message: Message) -> None:
     user = message.from_user.username or message.from_user.first_name
-    await message.answer(f"{user}, Вы написали в Группу ({message.chat.type})")
+    await message.answer(f"{user}, Вы написали в группу, сработал роутер r_group_any  ({message.chat.type})")
+
+
+async def cmd_start(message: Message) -> None:
+    user = message.from_user.username or message.from_user.first_name
+    await message.answer(f"{user}, Вы вызвали команду /start в группе, сработал роутер r_group_any ({message.chat.type})")
+
+r_any.message.register(echo)
 
 # Отработка вводимых команд
-r_any.message.register(echo)
+r_any.message.register(cmd_start, Command("start"))
 
 
 if __name__ == '__main__':

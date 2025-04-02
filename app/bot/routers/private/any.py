@@ -17,11 +17,17 @@ r_any.message.filter(F.chat.type.in_({"private"}))
 # Отработка команд
 async def echo(message: Message) -> None:
     user = message.from_user.username or message.from_user.first_name
-    await message.answer(f"{user}, Вы написали в ЛС ({message.chat.type}) чат боту")
+    await message.answer(f"{user}, Вы написали в ЛС ({message.chat.type})")
+
+
+async def cmd_start(message: Message) -> None:
+    user = message.from_user.username or message.from_user.first_name
+    await message.answer(f"{user}, Вы вызвали команду /start в ЛС ({message.chat.type})")
+
+r_any.message.register(echo)
 
 # Отработка вводимых команд
-# r_any.message.register(cmd_start, Command("start"))
-r_any.message.register(echo)
+r_any.message.register(cmd_start, Command("start"))
 
 
 # отработка нажатий кнопок в сообщениях
