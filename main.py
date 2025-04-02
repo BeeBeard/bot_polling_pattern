@@ -69,7 +69,7 @@ def main():
         logger.info(f"IP: {CONFIG.api.ip}")
         logger.info(f"PORT: {CONFIG.api.port}")
         uvicorn.run(
-            app="start_app:APP",
+            app="app.app:APP",
             # app=APP,
             host=CONFIG.api.ip,
             port=CONFIG.api.port,

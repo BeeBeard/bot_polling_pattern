@@ -1,4 +1,4 @@
-# объявляем app FastAPI, поднимаем WebHook для бота
+# Поднимаем Webhook для бота
 
 from aiogram.types import Update
 from fastapi import APIRouter, Request
