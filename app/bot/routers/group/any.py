@@ -2,8 +2,9 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 from dotenv import load_dotenv
-from loguru import logger
+# from loguru import logger
 from aiogram import F
+from app.bot.content import BotKeyboards
 
 load_dotenv()
 
@@ -20,7 +21,10 @@ async def echo(message: Message) -> None:
 
 async def cmd_start(message: Message) -> None:
     user = message.from_user.username or message.from_user.first_name
-    await message.answer(f"{user}, Вы вызвали команду /start в группе, сработал роутер r_group_any ({message.chat.type})")
+    await message.answer(
+        text=f"{user}, Вы вызвали команду /start в группе, сработал роутер r_group_any ({message.chat.type})",
+        reply_markup=BotKeyboards.test_menu_keyboard()
+    )
 
 
 # Отработка вводимых команд
