@@ -1,3 +1,4 @@
+import pprint
 
 import uvicorn
 from config import CONFIG
@@ -61,7 +62,7 @@ def main():
 
     # Base.metadata.create_all(conn.engine)
 
-    logger.info(CONFIG.bot.host)
+    pprint.pprint(CONFIG.model_dump())
     try:
 
         logger.info(f"Запуск API-server")
