@@ -5,7 +5,7 @@ from typing import Union
 
 from aiogram.types import (
     CallbackQuery,
-    # WebAppInfo,
+    WebAppInfo,
     InlineKeyboardMarkup,
     InlineKeyboardButton,
     KeyboardButton,
@@ -16,6 +16,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 from app.bot import BOT
 from app.assistant import Transform
 from aiogram.filters.state import State, StatesGroup
+from config import CONFIG
 
 
 class BotCmd:
@@ -45,10 +46,9 @@ class BotKeyboards:
 
     @staticmethod
     def test_show_menu(value: Union[str, int]) -> InlineKeyboardMarkup:  # Клавиатура под сообщением ботом
-
-        # event_menu.button(text=KeyWords.key_word1, web_app=WebAppInfo(url=os.path.join(S.CALABRA_FRONT, S.ENDPOINT_CREATE_EVENT, )))
         event_menu = InlineKeyboardBuilder()
-        event_menu.button(text=BotKeyWords.key_word1, callback_data=Transform(cmd=BotCmd.cmd_test1, value=value).str)
+        event_menu.button(text=BotKeyWords.key_word1, web_app=WebAppInfo(url=CONFIG.miniapp.path))
+        event_menu.button(text=BotKeyWords.key_word2, callback_data=Transform(cmd=BotCmd.cmd_test1, value=value).str)
         event_menu.adjust(1)
         return event_menu.as_markup()
 
