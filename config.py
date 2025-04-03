@@ -118,4 +118,5 @@ class Config(BaseSettings):
 
 
 CONFIG = Config()
+CONFIG.set_miniapp_path()  # Включить если miniapp в том же проекте
 # pprint.pprint(CONFIG.model_dump())
