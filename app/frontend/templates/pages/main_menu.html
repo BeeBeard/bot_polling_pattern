@@ -3,16 +3,16 @@
 {% block title %}Форма ввода события{% endblock %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="/calendar/static/style/create_event.css">
+<link rel="stylesheet" href="/static/style/create_event.css">
 {% endblock %}
 
 {% block content %}
 
-    <form action="/calendar/miniapp/create_event">
+    <form action="/miniapp/create_event">
         <button type="submit" class="nav-item {% if active_tab == 'create_event' %}active{% endif %}">Создать</button>
     </form>
 
-    <form action="/calendar/miniapp/show_events">
+    <form action="/miniapp/show_events">
         <button type="submit" class="nav-item {% if active_tab == 'show_events' %}active{% endif %}">Показать события</button>
     </form>
 
