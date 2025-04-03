@@ -22,7 +22,6 @@ async def lifespan(myapp: FastAPI):  # type: ignore
     logger.info(f"Запуск Fast API")
     logger.info(f"Документация: {CONFIG.api.host}:{CONFIG.api.port}{CONFIG.project.root}/docs#")
     logger.info(f"Корень miniapp: {CONFIG.miniapp.path}")
-    # webhook = f"{CONFIG.bot.host}{CONFIG.project.root}{CONFIG.bot.root}"
     logger.info(f"Webhook: {CONFIG.bot.webhook}")
 
     try:
