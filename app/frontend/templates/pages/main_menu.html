@@ -2,19 +2,20 @@
 
 {% block title %}Форма ввода события{% endblock %}
 
-<!--{% block extra_head %}-->
-<!--<link rel="stylesheet" href="/beebeard/frontend/static/style/create_event.css">-->
-<!--{% endblock %}-->
+<!---
+{% block extra_head %}
+<link rel="stylesheet" href="/beebeard/frontend/static/style/create_event.css">
+{% endblock %}
 
+{% block content %}
 
-<!--{% block content %}-->
+    <form action="/beebeard/frontend/miniapp/create_event">
+        <button type="submit" class="nav-item {% if active_tab == 'create_event' %}active{% endif %}">Создать</button>
+    </form>
 
-<!--    <form action="/beebeard/frontend/miniapp/create_event">-->
-<!--        <button type="submit" class="nav-item {% if active_tab == 'create_event' %}active{% endif %}">Создать</button>-->
-<!--    </form>-->
+    <form action="/beebeard/frontend/miniapp/show_events">
+        <button type="submit" class="nav-item {% if active_tab == 'show_events' %}active{% endif %}">Показать события</button>
+    </form>
 
-<!--    <form action="/beebeard/frontend/miniapp/show_events">-->
-<!--        <button type="submit" class="nav-item {% if active_tab == 'show_events' %}active{% endif %}">Показать события</button>-->
-<!--    </form>-->
-
-<!--{% endblock %}-->
+{% endblock %}
+--->
