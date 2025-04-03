@@ -1,43 +1,76 @@
 from aiogram import Router
-from aiogram.filters import Command
+from aiogram.filters import Command, StateFilter
 from aiogram.types import Message, CallbackQuery
-from dotenv import load_dotenv
+from aiogram.fsm.context import FSMContext
 
 from app.assistant import Transform
-from app.bot.content import BotKeyboards, Cmd
+from app.bot.content import BotKeyboards, BotStates, Cmd
 from app.bot.filters import IsCallCmd
 
-
-load_dotenv()
 
 r_any = Router(name="r_final_any")
 
 
 # Отработка команд
 
-async def echo(message: Message) -> None:
-    user = message.from_user.username or message.from_user.first_name
-    await message.answer(f"{user}, отработала конечная функция echo для r_final_any роутера ({message.chat.type})")
+async def echo(msg: Message) -> None:
+    user = msg.from_user.username or msg.from_user.first_name
+    await msg.answer(f"{user}, отработала конечная функция echo для r_final_any роутера ({msg.chat.type})")
 
 
-async def cmd_start(message: Message) -> None:
-    user = message.from_user.username or message.from_user.first_name
-    await message.answer(
-        text=f"{user}, Вы вызвали команду /start в r_final_any роутере [{message.chat.type}]",
-        reply_markup=BotKeyboards.test_show_menu()
+async def cmd_start(msg: Message) -> None:
+    user = msg.from_user.username or msg.from_user.first_name
+    await msg.answer(
+        text=f"{user}, Вы вызвали команду /start в r_final_any роутере [{msg.chat.type}]",
+        reply_markup=BotKeyboards.test_show_menu(value=f"Тестовое value {msg.chat.type}")
     )
 
 
-async def after_click_cmd_test(callback: CallbackQuery, tform: Transform) -> None:
-    await callback.answer()
-    await callback.message.answer(text=f"Отработка нажатия кнопки в r_final_any cmd:{tform.cmd}")
+async def after_click_cmd_test1(callback: CallbackQuery, state: FSMContext, tform: Transform) -> None:
+    """Тестовая функция для проверки вызова функции нажатия на кнопку "Кнопка 1": callback - tform.cmd = cmd_test1"""
+
+    await state.set_state(BotStates.state_test.state)  # Меняем состояние бота на state_test
+    await state.update_data(value=tform.value)  # Добавляем атрибут для хранения и передачи в state
+
+    await callback.answer()  # Отключаем "мигание" кнопки после нажатия
+
+    text = f"Отработка нажатия кнопки в r_group_any cmd:{tform.cmd}. Введите текст для проверки state"
+    await callback.message.answer(text=text)  # Отправляем сообщение пользователю
+
+
+async def after_click_cmd_test2(callback: CallbackQuery, state: FSMContext, tform: Transform) -> None:
+    """Тестовая функция для проверки вызова функции нажатия на кнопку "Кнопка 2": callback - tform.cmd = cmd_test2"""
+
+    state_data = await state.get_data()  # Получаем данные из state
+    await callback.answer()  # Отключаем "мигание" кнопки после нажатия
+
+    text = f"Ранее сохраненные данные:\n{state_data.get('value')}\n{state_data.get('text')}"
+    await callback.message.answer(text=text)  # Отправляем сообщение пользователю
+
+    await state.clear()  # Очищаем все состояния state
+
+
+async def save_state_text(msg: Message, state: FSMContext):
+    """Тестовая функция для сохранения msg.text в атрибут state"""
+
+    await state.update_data(text=msg.text.strip())  # Добавляем атрибут для хранения и передачи в state
+    await msg.answer(
+        text="Ваше сообщение сохранено",
+        reply_markup=BotKeyboards.test_show_state()
+    )
+
 
 # Отработка вводимых команд
 r_any.message.register(cmd_start, Command("start"))
 
 # Отработка нажатий кнопок в сообщениях
-r_any.callback_query.register(after_click_cmd_test, IsCallCmd(Cmd.cmd_test1))
+r_any.callback_query.register(after_click_cmd_test1, IsCallCmd(Cmd.cmd_test1))
+r_any.callback_query.register(after_click_cmd_test2, IsCallCmd(Cmd.cmd_test2))
 
+# Отработка state
+r_any.message.register(save_state_text, StateFilter("BotStates:state_test"))
+
+# Отработка обычных кнопок
 r_any.message.register(echo)
 
 if __name__ == '__main__':
