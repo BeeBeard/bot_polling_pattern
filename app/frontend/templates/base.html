@@ -17,6 +17,7 @@
             Telegram.WebApp.CloudStorage.getItem('accelerometer', function(err, data) {
                 if (!err && data) {
                     // Используйте данные акселерометра
+                    console.log("Данные акселерометра");
                     console.log(data);
                 }
             });
