@@ -50,11 +50,11 @@ class MiniAppConfig(ConfigBase):
     port: Optional[int] = None          # Порт для miniapp бота
     root: Optional[str] = ""            # Путь к директории miniapp бота
     secret: Optional[SecretStr] = ""    # "секрет" для безопасности miniapp
-    # path: str = ""
+    path: str = ""
 
-    @computed_field
-    def path(self) -> str:
-        return self.host + self.root
+    # @computed_field
+    # def path(self) -> str:
+    #     return self.host + self.root
 
 class ApiConfig(ConfigBase):
     model_config = SettingsConfigDict(env_prefix="api_")
