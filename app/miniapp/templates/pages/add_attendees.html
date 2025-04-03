@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Форма приглашения{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="/calendar/static/style/create_event.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form id="eventForm">
+        <div class="form-group"><label>Событие: {{context.summary}}</label></div>
+        <div class="form-group"><label>Место встречи: {{context.location}}</label></div>
+        <div class="form-group"><label>Организатор: {{context.initiator}}</label></div>
+        <div class="form-group"><label>Начало: {{context.start}}</label></div>
+        <div class="form-group"><label>Окончание: {{context.end}}</label></div>
+        <div class="form-group">
+            <label for="description">Описание события</label>
+            <textarea id="description" rows="4" readonly>{{context.description}}</textarea>
+        </div>
+        <div class="form-group" id="inputs-container">
+            <label>Email участника</label>
+            <input type="email" name="userEmail">
+        </div>
+        <button type="button" onclick="addInputField()">Новый участник</button>
+
+        <button type="submit" id="manage_event" value="{{context.id}}">Добавить участников</button>
+    </form>
+</div>
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script src="/calendar/static/js/base.js"></script>
+<script src="/calendar/static/js/add_attendees.js"></script>
+{% endblock %}
