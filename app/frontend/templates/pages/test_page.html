@@ -4,17 +4,17 @@
 
 
 {% block extra_head %}
-    <link rel="stylesheet" href="{% miniAppRoot %}/static/style/base.css">
+    <link rel="stylesheet" href="{{root}}/static/style/base.css">
 {% endblock %}
 
 
 {% block content %}
-    <form action="{% miniAppRoot %}/miniapp/create_event">
+    <form action="{{root}}/miniapp/create_event">
         <button class="nav-item" onclick="testClickButton()">Тестовая кнопка</button>
     </form>
 {% endblock %}
 
 
 {% block extra_scripts %}
-    <script src="{% miniAppRoot %}/static/js/base.js"></script>
+    <script src="{{root}}/static/js/base.js"></script>
 {% endblock %}
