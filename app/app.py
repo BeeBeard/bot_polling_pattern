@@ -1,5 +1,5 @@
 # объявляем app FastAPI, поднимаем WebHook для бота
-
+import os.path
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -66,7 +66,7 @@ APP.include_router(router=r_healthcheck)    # router для проверки с�
 APP.include_router(router=r_miniapp)
 APP.include_router(router=r_invitation)
 
-APP.mount(path='/static', app=StaticFiles(directory='app/static'), name='static')
+APP.mount(path='/static', app=StaticFiles(directory=os.path.join("app", "frontend", "static")), name='static')
 
 if __name__ == "__main__":
     pass
