@@ -28,5 +28,10 @@
         </div>
 
         {% block extra_scripts %}{% endblock %}
+
+        <script>
+            let tgTestInfo = document.getElementById('tgTestInfo')
+            tgTestInfo.textContent = JSON.stringify(tg);
+        </script>
     </body>
 </html>
