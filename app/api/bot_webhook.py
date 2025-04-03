@@ -12,7 +12,7 @@ r_bot_webhook = APIRouter(tags=['BOT WEBHOOK'])
 
 
 # WEBHOOK
-@r_bot_webhook.post(f"{CONFIG.bot.root}")
+@r_bot_webhook.post(CONFIG.bot.root)
 async def webhook(request: Request) -> None:
     logger.info("Получен запрос на bot webhook")
 

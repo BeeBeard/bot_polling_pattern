@@ -12,7 +12,7 @@ from config import CONFIG
 templates_path = os.path.join("app", "templates")
 templates = Jinja2Templates(directory=templates_path)
 
-r_miniapp = APIRouter(prefix=f'/{CONFIG.miniapp.root}', tags=['FRONTEND'])
+r_miniapp = APIRouter(prefix=CONFIG.miniapp.root, tags=['FRONTEND'])
 r_invitation = APIRouter(tags=['INVITATION'])
 
 
