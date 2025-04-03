@@ -9,7 +9,7 @@ from app.models import MiniappEvent
 from config import CONFIG
 
 
-templates_path = os.path.join("app", "templates")
+templates_path = os.path.join("app", "frontend", "templates")  # Путь где фактически располагаются templates
 templates = Jinja2Templates(directory=templates_path)
 
 r_miniapp = APIRouter(prefix=CONFIG.miniapp.root, tags=['FRONTEND'])
