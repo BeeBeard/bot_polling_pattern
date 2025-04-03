@@ -115,8 +115,9 @@ class Config(BaseSettings):
     def __init__(self, **data):
         super().__init__(**data)
         self.set_bot_path()
+        self.set_miniapp_path()  # Включить если miniapp в том же проекте
 
 
 CONFIG = Config()
-CONFIG.set_miniapp_path()  # Включить если miniapp в том же проекте
+
 # pprint.pprint(CONFIG.model_dump())
