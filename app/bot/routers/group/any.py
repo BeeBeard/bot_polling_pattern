@@ -4,7 +4,7 @@ from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
 
 from app.assistant import Transform
-from app.bot.content import BotKeyboards, BotStates, Cmd
+from app.bot.content import BotKeyboards, BotStates, BotCmd
 from app.bot.filters import IsCallCmd
 
 
@@ -65,8 +65,8 @@ async def save_state_text(msg: Message, state: FSMContext):
 r_any.message.register(cmd_start, Command("start"))
 
 # Отработка нажатий кнопок в сообщениях
-r_any.callback_query.register(after_click_cmd_test1, IsCallCmd(Cmd.cmd_test1))
-r_any.callback_query.register(after_click_cmd_test2, IsCallCmd(Cmd.cmd_test2))
+r_any.callback_query.register(after_click_cmd_test1, IsCallCmd(BotCmd.cmd_test1))
+r_any.callback_query.register(after_click_cmd_test2, IsCallCmd(BotCmd.cmd_test2))
 
 # Отработка state
 r_any.message.register(save_state_text, StateFilter("BotStates:state_test"))

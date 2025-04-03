@@ -16,11 +16,9 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 from app.bot import BOT
 from app.assistant import Transform
 from aiogram.filters.state import State, StatesGroup
-# from config import CONFIG
-# from loguru import logger
 
 
-class Cmd:
+class BotCmd:
     """Класс для описания переменных используемых при вызове команд в боте"""
     cmd1 = "cmd1"   # Описание команды
 
@@ -30,7 +28,7 @@ class Cmd:
 
 
 # Текста кнопок
-class KeyWords:
+class BotKeyWords:
     """Клас для описания переменных используемых для клавиатуры в телеграмме"""
 
     key_word1 = "Кнопка 1"
@@ -50,14 +48,14 @@ class BotKeyboards:
 
         # event_menu.button(text=KeyWords.key_word1, web_app=WebAppInfo(url=os.path.join(S.CALABRA_FRONT, S.ENDPOINT_CREATE_EVENT, )))
         event_menu = InlineKeyboardBuilder()
-        event_menu.button(text=KeyWords.key_word1, callback_data=Transform(cmd=Cmd.cmd_test1, value=value).str)
+        event_menu.button(text=BotKeyWords.key_word1, callback_data=Transform(cmd=BotCmd.cmd_test1, value=value).str)
         event_menu.adjust(1)
         return event_menu.as_markup()
 
     @staticmethod
     def test_show_state() -> InlineKeyboardMarkup:  # Клавиатура под сообщением ботом
         event_menu = InlineKeyboardBuilder()
-        event_menu.button(text=KeyWords.key_word2, callback_data=Transform(cmd=Cmd.cmd_test2).str)
+        event_menu.button(text=BotKeyWords.key_word2, callback_data=Transform(cmd=BotCmd.cmd_test2).str)
         event_menu.adjust(1)
         return event_menu.as_markup()
 
@@ -66,7 +64,7 @@ class BotKeyboards:
 
         kb = [[
             # KeyboardButton(text=KeyWords.key_word1, web_app=WebAppInfo(url=os.path.join(S.CALABRA_FRONT, S.ENDPOINT_CREATE_EVENT))),
-            KeyboardButton(text=KeyWords.key_word2)
+            KeyboardButton(text=BotKeyWords.key_word2)
         ]]
         return ReplyKeyboardMarkup(
             keyboard=kb,
@@ -90,7 +88,7 @@ class BotKeyboards:
         for row in callback.message.reply_markup.inline_keyboard:
             for coll in row:
                 if coll.callback_data == callback.data:
-                    buttons = [[InlineKeyboardButton(text=coll.text, callback_data=Transform(cmd=Cmd.empty, value=value).str)]]
+                    buttons = [[InlineKeyboardButton(text=coll.text, callback_data=Transform(cmd=BotCmd.empty, value=value).str)]]
                     button_text = coll.text
                     break
         keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
