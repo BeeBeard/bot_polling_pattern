@@ -3,13 +3,15 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from loguru import logger
 
-from app.api import r_healthcheck, r_bot_webhook
+from app.api import r_healthcheck, r_bot_webhook, r_miniapp, r_invitation
 
 from app.bot import BOT, DP
+
 from config import CONFIG
+from loguru import logger
 
 
 # noinspection PyUnusedLocal
@@ -60,6 +62,11 @@ APP.add_middleware(
 
 APP.include_router(router=r_bot_webhook)    # Webhook для приема данных от API telegram
 APP.include_router(router=r_healthcheck)    # router для проверки состояния приложения
+
+APP.include_router(router=r_miniapp)
+APP.include_router(router=r_invitation)
+
+APP.mount(path='/static', app=StaticFiles(directory='app/static'), name='static')
 
 if __name__ == "__main__":
     pass
