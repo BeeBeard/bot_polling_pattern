@@ -13,22 +13,16 @@
         tg.ready()
         console.log(tg)
 
-        if (window.Telegram && Telegram.WebApp.isVersionAtLeast('6.1')) {
-            Telegram.WebApp.CloudStorage.getItem('accelerometer', function(err, data) {
-                if (!err && data) {
-                    // Используйте данные акселерометра
-                    console.log("Данные акселерометра");
-                    console.log(data);
-                }
-            });
-        } else {
-            alert("Ваша версия Telegram не поддерживает акселерометр!");
-        }
+        let tgTestInfo = document.getElementById('tgTestInfo')
+        tgTestInfo.textContent = JSON.stringify(tg);
+
     </script>
     {% block extra_head %}{% endblock %}
 
 </head>
     <body>
+        <div id="tgTestInfo">
+        </div>
         <div class="container">
             {% block content %}{% endblock %}
         </div>
