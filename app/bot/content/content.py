@@ -1,7 +1,7 @@
 # Список переменный для cmd callback
 
 # import os
-# from typing import Union
+from typing import Union
 
 from aiogram.types import (
     CallbackQuery,
@@ -15,6 +15,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 from app.bot import BOT
 from app.assistant import Transform
+from aiogram.filters.state import State, StatesGroup
 # from config import CONFIG
 # from loguru import logger
 
@@ -23,7 +24,8 @@ class Cmd:
     """Класс для описания переменных используемых при вызове команд в боте"""
     cmd1 = "cmd1"   # Описание команды
 
-    cmd_test = "cmd_test"
+    cmd_test1 = "cmd_test1"
+    cmd_test2 = "cmd_test2"
     empty = "empty"
 
 
@@ -35,15 +37,27 @@ class KeyWords:
     key_word2 = "Кнопка 2"
 
 
+class BotStates(StatesGroup):
+    """Клас для хранения списка используемых состояний"""
+
+    state_test = State()
+
 class BotKeyboards:
     """Класс для создания клавиатур"""
 
     @staticmethod
-    def test_menu() -> InlineKeyboardMarkup:  # Клавиатура под сообщением ботом
+    def test_show_menu(value: Union[str, int]) -> InlineKeyboardMarkup:  # Клавиатура под сообщением ботом
 
-        event_menu = InlineKeyboardBuilder()
         # event_menu.button(text=KeyWords.key_word1, web_app=WebAppInfo(url=os.path.join(S.CALABRA_FRONT, S.ENDPOINT_CREATE_EVENT, )))
-        event_menu.button(text=KeyWords.key_word2, callback_data=Transform(cmd=Cmd.cmd_test).str)
+        event_menu = InlineKeyboardBuilder()
+        event_menu.button(text=KeyWords.key_word1, callback_data=Transform(cmd=Cmd.cmd_test1, value=value).str)
+        event_menu.adjust(1)
+        return event_menu.as_markup()
+
+    @staticmethod
+    def test_show_state() -> InlineKeyboardMarkup:  # Клавиатура под сообщением ботом
+        event_menu = InlineKeyboardBuilder()
+        event_menu.button(text=KeyWords.key_word2, callback_data=Transform(cmd=Cmd.cmd_test2).str)
         event_menu.adjust(1)
         return event_menu.as_markup()
 
