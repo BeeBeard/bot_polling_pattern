@@ -24,7 +24,7 @@ async def cmd_start(message: Message) -> None:
     user = message.from_user.username or message.from_user.first_name
     await message.answer(
         text=f"{user}, Вы вызвали команду /start в r_final_any роутере [{message.chat.type}]",
-        reply_markup=BotKeyboards.test_menu()
+        reply_markup=BotKeyboards.test_show_menu()
     )
 
 
@@ -36,7 +36,7 @@ async def after_click_cmd_test(callback: CallbackQuery, tform: Transform) -> Non
 r_any.message.register(cmd_start, Command("start"))
 
 # Отработка нажатий кнопок в сообщениях
-r_any.callback_query.register(after_click_cmd_test,              IsCallCmd(Cmd.cmd_test))
+r_any.callback_query.register(after_click_cmd_test, IsCallCmd(Cmd.cmd_test1))
 
 r_any.message.register(echo)
 
