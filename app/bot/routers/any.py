@@ -23,7 +23,7 @@ async def echo(message: Message) -> None:
 async def cmd_start(message: Message) -> None:
     user = message.from_user.username or message.from_user.first_name
     await message.answer(
-        text=f"{user}, Вы вызвали команду /start в r_final_any роутере ({message.chat.type})",
+        text=f"{user}, Вы вызвали команду /start в r_final_any роутере [{message.chat.type}]",
         reply_markup=BotKeyboards.test_menu()
     )
 

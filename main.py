@@ -70,10 +70,8 @@ def main():
         logger.info(f"PORT: {CONFIG.api.port}")
         uvicorn.run(
             app="app.app:APP",
-            # app=APP,
             host=CONFIG.api.ip,
             port=CONFIG.api.port,
-            # root_path=CONFIG.project.root,
             log_level="debug",
             reload=True
         )
