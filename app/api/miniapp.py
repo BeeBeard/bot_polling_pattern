@@ -45,16 +45,17 @@ async def open_create_event(request: Request, context: MiniappEvent = None):
 @r_miniapp.get(f"/t3", response_class=HTMLResponse)
 async def open_edit_event(event_id: str, request: Request, preload_context: MiniappEvent = None):
 
-    if not preload_context:
-        result = await sql.get_event(event_id=event_id)
-        # noinspection PyUnresolvedReferences
-        result_dict = result._asdict()
-        pprint.pprint(f"Полученные данные из базы\n\n{result_dict}")
-        context = MiniappEvent.parse_obj(result_dict)
-        pprint.pprint(f"Схема \n\n{context}")
+    # if not preload_context:
+    #     result = await sql.get_event(event_id=event_id)
+    #     # noinspection PyUnresolvedReferences
+    #     result_dict = result._asdict()
+    #     pprint.pprint(f"Полученные данные из базы\n\n{result_dict}")
+    #     context = MiniappEvent.parse_obj(result_dict)
+    #     pprint.pprint(f"Схема \n\n{context}")
+    #
+    # else:
 
-    else:
-        context = MiniappEvent.parse_obj(preload_context)
+    context = MiniappEvent.parse_obj(preload_context)
 
     context.manage_type = "edit_event"
 
@@ -72,16 +73,16 @@ async def open_edit_event(event_id: str, request: Request, preload_context: Mini
 @r_invitation.get("/{event_id}", response_class=HTMLResponse)
 async def open_add_attendees(event_id: str, request: Request, preload_context: MiniappEvent = None):
 
-    if not preload_context:
-        result = await sql.get_event(event_id=event_id)
-        # noinspection PyUnresolvedReferences,PyProtectedMember
-        result_dict = result._asdict()
-        pprint.pprint(f"Полученные данные из базы\n\n{result_dict}")
-        context = MiniappEvent.parse_obj(result_dict)
-        pprint.pprint(f"Схема \n\n{context}")
-
-    else:
-        context = MiniappEvent.parse_obj(preload_context)
+    # if not preload_context:
+    #     result = await sql.get_event(event_id=event_id)
+    #     # noinspection PyUnresolvedReferences,PyProtectedMember
+    #     result_dict = result._asdict()
+    #     pprint.pprint(f"Полученные данные из базы\n\n{result_dict}")
+    #     context = MiniappEvent.parse_obj(result_dict)
+    #     pprint.pprint(f"Схема \n\n{context}")
+    #
+    # else:
+    context = MiniappEvent.parse_obj(preload_context)
 
     context.manage_type = "edit_event"
 
