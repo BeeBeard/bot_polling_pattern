@@ -52,13 +52,13 @@ origins = [
 ]
 
 APP = FastAPI(root_path=CONFIG.project.root, lifespan=lifespan)
-APP.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# APP.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 APP.include_router(router=r_bot_webhook)    # Webhook для приема данных от API telegram
 APP.include_router(router=r_healthcheck)    # router для проверки состояния приложения
