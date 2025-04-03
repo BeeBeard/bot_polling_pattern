@@ -24,7 +24,7 @@ async def open_main_menu(request: Request):
         "pages/test_page.html",     # Путь к расположению html страниц относительно templates_path
         {
             "request": request,
-            "root": CONFIG.project.root  # Передаем путь для подгрузки js и css
+            "miniAppRoot": CONFIG.project.root  # Передаем путь для подгрузки js и css
         }
     )
 
