@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <title>{% block title %}Приложение QR-кодов{% endblock %}</title>
+    <title>{% block title %}Тестовое miniapp{% endblock %}</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+
     <script>eruda.init()</script>   <!--    отключить после тестирования miniapp-->
+
+    <!-- Инициализация скрипта для работы с Telegramm -->
     <script>
         const tg = window.Telegram.WebApp;
         tg.ready()
-        console.log(tg)
+        console.log(tg) // Вывод данных tg в консоль
     </script>
     {% block extra_head %}{% endblock %}
 
@@ -19,15 +22,11 @@
     <body>
         <div id="tgTestInfo">
         </div>
+
         <div class="container">
             {% block content %}{% endblock %}
         </div>
 
         {% block extra_scripts %}{% endblock %}
-
-        <script>
-            let tgTestInfo = document.getElementById('tgTestInfo')
-            tgTestInfo.textContent = JSON.stringify(tg);
-        </script>
     </body>
 </html>
