@@ -9,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api import r_healthcheck, r_bot_webhook, r_miniapp
 
 from app.bot import BOT, DP
+from app.middleware import AllowedHosts
 
 from config import CONFIG
 from loguru import logger
@@ -52,6 +53,7 @@ origins = [
 ]
 
 APP = FastAPI(root_path=CONFIG.project.root, lifespan=lifespan)
+APP.add_middleware(AllowedHosts)
 # APP.add_middleware(
 #     CORSMiddleware,
 #     allow_origins=origins,

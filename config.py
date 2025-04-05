@@ -1,10 +1,11 @@
 # Модель лоя получения настроек из .env
-from pydantic import BaseModel, model_validator, validator, computed_field
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from typing import Optional, Union, Any
+
 from pydantic import Field, SecretStr, EmailStr
-from typing import Optional, Union
-import pprint
-import os
+from pydantic import computed_field, field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
 class ConfigBase(BaseSettings):
 
     model_config = SettingsConfigDict(
@@ -90,13 +91,29 @@ class DatabaseConfig(ConfigBase):
     driver: Optional[str] = ""
 
 
+class AllowedConfig(ConfigBase):
+    model_config = SettingsConfigDict(env_prefix="allowed_")
+
+    ips: Any
+
+    @field_validator("ips")
+    def parse_items(cls, v):
+        print(v)
+        if isinstance(v, str):
+            return [x.strip() for x in v.split(",") if x.strip()]
+        return []
+
+
 class Config(BaseSettings):
+    model_config = SettingsConfigDict()
+
     project: Project = Field(default_factory=Project)
     author: Author = Field(default_factory=Author)
     bot: BotConfig = Field(default_factory=BotConfig)
     miniapp: MiniAppConfig = Field(default_factory=MiniAppConfig)
     api: ApiConfig = Field(default_factory=ApiConfig)
     db: DatabaseConfig = Field(default_factory=DatabaseConfig)
+    allowed: AllowedConfig = Field(default_factory=AllowedConfig)
 
     @classmethod
     def load(cls) -> "Config":
