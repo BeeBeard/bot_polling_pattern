@@ -1,11 +1,10 @@
-import logging
+import asyncio
 import pprint
 import sys
 
-import uvicorn
 from loguru import logger
 
-from app.assistant import InterruptLogger
+from app import start_bot
 from app.config import CONFIG
 from app.conn import CONN, tables
 
@@ -49,57 +48,30 @@ logger.add("logs/error/error.log", format=LogSetting.ELSE, level="ERROR", rotati
            backtrace=True, diagnose=True, catch=True)
 
 
-# Отключаем стандартные логи Uvicorn
-logging.getLogger("uvicorn").handlers.clear()
-logging.getLogger("uvicorn.access").handlers.clear()
-
-# Применяем перехватчик
-logging.basicConfig(handlers=[InterruptLogger()], level=0)
-
-
 @logger.catch
-def main():
-
-    # sentry_loguru = LoguruIntegration(
-    #     level=LoggingLevels.INFO.value,  # Capture info and above as breadcrumbs
-    #     event_level=LoggingLevels.ERROR.value  # Send errors as events
-    # )
-    #
-    # sentry_sdk.init(
-    #
-    #     dsn=S.DSN,
-    #     send_default_pii=True,
-    #     integrations=[
-    #         sentry_loguru,
-    #     ],
-    # )
-
-    # Base.metadata.create_all(conn.engine)
+async def main():
 
     pprint.pprint(CONFIG.model_dump())
     print()
 
-    try:
+    logger.info(f"Подключение и настройка базы данных")
+    tables.Base.metadata.create_all(CONN.engine)
 
-        logger.info(f"Подключение и настройка базы данных")
-        tables.Base.metadata.create_all(CONN.engine)
-
-        logger.info(f"Запуск APP: {CONFIG.api.path}")
-        uvicorn.run(
-            app="app.app:APP",
-            host=CONFIG.api.ip,
-            port=CONFIG.api.port,
-            log_level="debug",
-            reload=True
-        )
-
-    except KeyboardInterrupt:
-        logger.info(f"Сервер остановлен")
-    except Exception as e:
-        logger.exception(e)
-    finally:
-        logger.info(f"Выключение APP")
+    logger.info(f"Запуск бота")
+    await start_bot()
 
 
 if __name__ == "__main__":
-    main()
+
+    try:
+
+        asyncio.run(main())
+
+    except KeyboardInterrupt:
+        pass
+
+    except Exception as e:
+        logger.exception(e)
+
+    logger.info(f"Выключение бота")
+

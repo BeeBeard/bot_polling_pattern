@@ -54,15 +54,14 @@ class BotData:  # Данные бота
         content = json.loads(result.content.decode('utf8'))
         self.title = content["result"]["first_name"]
         self.name = content["result"]["username"]
-        self.url: str = f"https://t.me/{self.name}"  # НЕ менять привязан к БОТУ!
-        self.start_url: str = f"{self.url}?start="
-        self.add_url: str = f"t.me/{self.name}?startgroup"
+        self.url = f"https://t.me/{self.name}"  # НЕ менять привязан к БОТУ!
+        self.start_url = f"{self.url}?start="
+        self.add_url = f"t.me/{self.name}?startgroup"
 
     def set_commands(self) -> None:
         """Отобразить список команд для пользователя"""
         commands = [
             BotCommand(command=f"/start", description="Запуск бота"),
-            # BotCommand(command=f"/stop", description="Прервать ввод данных"),
             BotCommand(command=f"/id", description="Узнать собственный user.id"),
 
         ]

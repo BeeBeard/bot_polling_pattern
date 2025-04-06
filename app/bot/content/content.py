@@ -1,11 +1,10 @@
 # Список переменный для cmd callback
 
-# import os
 from typing import Union
 
+from aiogram.filters.state import State, StatesGroup
 from aiogram.types import (
     CallbackQuery,
-    WebAppInfo,
     InlineKeyboardMarkup,
     InlineKeyboardButton,
     KeyboardButton,
@@ -13,10 +12,8 @@ from aiogram.types import (
 )
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from app.bot import BOT
 from app.assistant import Transform
-from aiogram.filters.state import State, StatesGroup
-from app.config import CONFIG
+from app.bot import BOT
 
 
 class BotCmd:
@@ -47,7 +44,6 @@ class BotKeyboards:
     @staticmethod
     def test_show_menu(value: Union[str, int]) -> InlineKeyboardMarkup:  # Клавиатура под сообщением ботом
         event_menu = InlineKeyboardBuilder()
-        event_menu.button(text=BotKeyWords.key_word1, web_app=WebAppInfo(url=CONFIG.miniapp.path + CONFIG.miniapp.main_page))
         event_menu.button(text=BotKeyWords.key_word2, callback_data=Transform(cmd=BotCmd.cmd_test1, value=value).str)
         event_menu.adjust(1)
         return event_menu.as_markup()
