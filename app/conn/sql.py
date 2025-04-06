@@ -46,7 +46,7 @@ async def get_user(user_id: int) -> Union[tables.User, bool]:
     async with async_engine.connect() as session:
 
         try:
-            stmt = (select(tables.User).filter(tables.User.user_id == user_id))
+            stmt = (select(tables.User).filter(tables.User.id == user_id))
             result = await session.execute(stmt)
 
             return result.all()

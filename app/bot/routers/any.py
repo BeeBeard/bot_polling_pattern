@@ -38,6 +38,7 @@ async def after_click_cmd_test1(callback: CallbackQuery, state: FSMContext, tfor
     await callback.message.answer(text=text)  # Отправляем сообщение пользователю
 
 
+# noinspection PyUnusedLocal
 async def after_click_cmd_test2(callback: CallbackQuery, state: FSMContext, tform: Transform) -> None:
     """Тестовая функция для проверки вызова функции нажатия на кнопку "Кнопка 2": callback - tform.cmd = cmd_test2"""
 
