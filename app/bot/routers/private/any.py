@@ -27,7 +27,7 @@ async def cmd_start(msg: Message) -> None:
 
     try:
         user_data = msg.from_user.model_dump(exclude_none=True)
-        user_data["iser_id"] = msg.from_user.id
+        user_data["user_id"] = msg.from_user.id
 
         await sql.to_table(table=tables.User, **user_data)
 
