@@ -91,9 +91,20 @@ class DatabaseConfig(ConfigBase):
     async_dialect: str
     driver: Optional[str] = ""
 
+    def pre_conn(self):  # Подготавливаем строку для создания conn
+        return (
+            f"{self.user.get_secret_value()}:{self.password.get_secret_value()}@"
+            f"{self.ip.get_secret_value()}:{self.port}/{self.name.get_secret_value()}{self.driver}"
+        )
+
     @computed_field
     def async_conn(self) -> SecretStr:
-        return SecretStr(f"{self.async_dialect}://{self.user}:{self.password.get_secret_value()}@{self.ip.get_secret_value()}:{self.port}/{self.name}{self.driver}")
+        return SecretStr(f"{self.async_dialect}://{self.pre_conn()}")
+
+    @computed_field
+    def conn(self) -> SecretStr:
+        return SecretStr(f"{self.dialect}://{self.pre_conn()}")
+
 
 class AllowedConfig(ConfigBase):
     model_config = SettingsConfigDict(env_prefix="allowed_")
