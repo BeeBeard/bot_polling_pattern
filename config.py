@@ -98,7 +98,7 @@ class AllowedConfig(ConfigBase):
 
     @field_validator("ips")
     def parse_items(cls, v):
-        print(v)
+
         if isinstance(v, str):
             return [x.strip() for x in v.split(",") if x.strip()]
         return []

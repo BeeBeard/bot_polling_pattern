@@ -20,8 +20,9 @@ routers = [
     r_final.r_any
 ]
 
-router_names = "\n".join([i.name for i in routers])
-logger.info(f'Подключаем роутеры:\n{router_names}')
+
+for i, value in enumerate(routers):
+    logger.info(f'Подключил {i+1} роутер: {value.name}')
 
 
 DP.include_routers(*routers)    # Подключаем роутеры
