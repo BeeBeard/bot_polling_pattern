@@ -8,10 +8,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class ConfigBase(BaseSettings):
-
-    model_config = SettingsConfigDict(
-        env_file=".env", env_file_encoding="utf-8", extra="ignore"
-    )
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
 class Project(ConfigBase):
     model_config = SettingsConfigDict(env_prefix="project_")
@@ -32,16 +29,7 @@ class Author(ConfigBase):
 
 class BotConfig(ConfigBase):
     model_config = SettingsConfigDict(env_prefix="tg_")
-
     token: SecretStr
-    is_webhook: bool = False
-
-    ip: Optional[str] = ""                  # ip на хост где висит webhook бота
-    host: Optional[str] = ""                # Ссылка на хост где висит webhook бота
-    port: Optional[int] = ""                # Порт для бота
-    root: Optional[str] = ""                # Путь к директории webhook бота
-    secret: Optional[SecretStr] = ""        # "секрет" для безопасности webhook
-    webhook: str = ""
 
 
 class DatabaseConfig(ConfigBase):
