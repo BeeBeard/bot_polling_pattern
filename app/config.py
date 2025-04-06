@@ -72,10 +72,5 @@ class Config(BaseSettings):
     def load(cls) -> "Config":
         return cls()
 
-    def __init__(self, **data):
-        super().__init__(**data)
-        self.set_bot_path()
-        self.set_miniapp_path()  # Включить если miniapp в том же проекте
-
 
 CONFIG = Config()
