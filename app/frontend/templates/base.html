@@ -15,12 +15,9 @@
         const tg = window.Telegram.WebApp;
         tg.ready()
 
-        console.log(tg.platform) // Вывод данных
+        if (tg.platform == "unknown"){ window.location.href = 'about:blank'; }
 
-        if (tg.platform == "unknown"){
-            window.close();
-        }
-        console.log(tg) // Вывод данных tg в консоль
+        console.log(tg.platform) // Вывод данных
     </script>
     {% block extra_head %}{% endblock %}
 
