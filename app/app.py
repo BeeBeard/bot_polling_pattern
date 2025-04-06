@@ -48,7 +48,7 @@ async def lifespan(myapp: FastAPI):  # type: ignore
 origins = []
 
 APP = FastAPI(root_path=CONFIG.project.root, lifespan=lifespan)
-APP.add_middleware(AllowedHosts)
+# APP.add_middleware(AllowedHosts)       # Фильтр по IP
 
 # APP.add_middleware(
 #     CORSMiddleware,
