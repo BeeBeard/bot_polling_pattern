@@ -6,6 +6,8 @@ from aiogram.fsm.context import FSMContext
 from app.assistant import Transform
 from app.bot.content import BotKeyboards, BotStates, BotCmd
 from app.bot.filters import IsCallCmd
+from app.conn import tables, sql
+from loguru import logger
 
 
 r_any = Router(name="r_private_any")
@@ -23,6 +25,10 @@ async def echo(msg: Message) -> None:
 async def cmd_start(msg: Message) -> None:
     """Тестовая функция для проверки вызова функции через команду /start"""
 
+    try:
+        await sql.to_table(table=tables.User, **msg.from_user.model_dump(exclude_none=True))
+    except Exception as e:
+        logger.error(f"Ошибка при сохранении данных пользователя: {e}")
     user = msg.from_user.username or msg.from_user.first_name
     await msg.answer(
         text=f"{user}, Вы вызвали команду /start в ЛС [{msg.chat.type}]",
