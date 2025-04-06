@@ -15,7 +15,7 @@
         const tg = window.Telegram.WebApp;
         tg.ready()
 
-        if (!tg.initDataUnsafe){
+        if (tg.platform == "unknown"){
             window.close();
         }
         console.log(tg) // Вывод данных tg в консоль
