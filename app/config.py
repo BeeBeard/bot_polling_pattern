@@ -83,14 +83,17 @@ class DatabaseConfig(ConfigBase):
 
     ip: SecretStr
     port: int
-    name: str
-    user: str
+    name: SecretStr
+    user: SecretStr
     password: SecretStr
 
     dialect: str
     async_dialect: str
     driver: Optional[str] = ""
 
+    @computed_field
+    def async_conn(self) -> SecretStr:
+        return SecretStr(f"{self.async_dialect}://{self.user}:{self.password.get_secret_value()}@{self.ip.get_secret_value()}:{self.port}/{self.name}{self.driver}")
 
 class AllowedConfig(ConfigBase):
     model_config = SettingsConfigDict(env_prefix="allowed_")
