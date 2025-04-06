@@ -28,8 +28,8 @@ class User(Base):  # Parent
     __tablename__ = "users"
     __table_args__ = {'comment': 'Данные пользователя из TG'}
 
-    id = mapped_column(BigInteger, primary_key=True, unique=True, nullable=False, index=True, autoincrement=True)
-    user_id = mapped_column(BigInteger, primary_key=True, unique=True, nullable=False, index=True, comment='ID пользователя')
+    uid = mapped_column(BigInteger, primary_key=True, unique=True, nullable=False, index=True, autoincrement=True)
+    id = mapped_column(BigInteger, primary_key=True, unique=True, nullable=False, index=True, comment='ID пользователя')
     is_bot = mapped_column(Boolean, server_default=text('False'), nullable=False, comment='Это бот?')
     is_premium = mapped_column(Boolean, server_default=text('False'), nullable=True, comment='Есть премиум?')
     username = mapped_column(String(100), nullable=True, comment="Username")
@@ -40,8 +40,8 @@ class User(Base):  # Parent
     def __repr__(self) -> str:
         return (
             f"User("
+            f"uid={self.uid!r}, "
             f"id={self.id!r}, "
-            f"user_id={self.user_id!r}, "
             f"is_bot={self.is_bot!r}, "
             f"is_premium={self.is_premium!r}, "
             f"username={self.username!r}, "
