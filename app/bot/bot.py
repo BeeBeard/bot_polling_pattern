@@ -11,7 +11,7 @@ from aiogram.enums.parse_mode import ParseMode
 from aiogram.client.bot import DefaultBotProperties
 from typing import Union
 from dotenv import load_dotenv
-from config import CONFIG
+from app.config import CONFIG
 from aiogram.types import BotCommand
 
 load_dotenv()

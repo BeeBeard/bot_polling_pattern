@@ -10,7 +10,7 @@ from loguru import logger
 from app.api import r_healthcheck, r_bot_webhook, r_miniapp
 from app.bot import BOT, DP
 from app.middleware import AllowedHosts
-from config import CONFIG
+from app.config import CONFIG
 
 
 # noinspection PyUnusedLocal

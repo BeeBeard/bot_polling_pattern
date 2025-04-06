@@ -16,7 +16,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 from app.bot import BOT
 from app.assistant import Transform
 from aiogram.filters.state import State, StatesGroup
-from config import CONFIG
+from app.config import CONFIG
 
 
 class BotCmd:

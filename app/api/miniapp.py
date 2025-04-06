@@ -6,7 +6,7 @@ from fastapi.requests import Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-from config import CONFIG
+from app.config import CONFIG
 
 templates_path = os.path.join("app", "frontend", "templates")  # Путь где фактически располагаются templates
 templates = Jinja2Templates(directory=templates_path)

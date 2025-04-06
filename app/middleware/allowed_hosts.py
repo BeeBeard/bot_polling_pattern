@@ -1,7 +1,7 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
-from config import CONFIG
+from app.config import CONFIG
 
 
 # Кастомный middleware для проверки IP

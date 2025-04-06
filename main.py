@@ -1,7 +1,7 @@
 import pprint
 
 import uvicorn
-from config import CONFIG
+from app.config import CONFIG
 from loguru import logger
 import sys
 

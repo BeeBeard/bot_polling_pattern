@@ -5,7 +5,7 @@ from fastapi import APIRouter, Request
 from loguru import logger
 
 from app.bot import BOT, DP
-from config import CONFIG
+from app.config import CONFIG
 
 
 r_bot_webhook = APIRouter(tags=['BOT WEBHOOK'])
