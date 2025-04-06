@@ -12,12 +12,15 @@ from app.conn import CONN
 from app.conn import tables
 
 
+async_engine = CONN.async_engine
+
+
 # Добавляем данные к выбранной таблице
 async def to_table(table: Dai = None, **kwargs) -> Union[tables.User, bool]:
     if not table or not kwargs:
         return False
 
-    async with CONN.async_engine.connect() as session:
+    async with async_engine.connect() as session:
 
         try:
             kwargs["updated"] = datetime.now()
@@ -40,7 +43,7 @@ async def get_user(user_id: int) -> Union[tables.User, bool]:
     if not user_id:
         return False
 
-    async with CONN.async_engine.connect() as session:
+    async with async_engine.connect() as session:
 
         try:
             stmt = (select(tables.User).filter(tables.User.user_id == user_id))
