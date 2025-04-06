@@ -1,18 +1,16 @@
 # объявляем app FastAPI, поднимаем WebHook для бота
+
 import os.path
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.middleware.cors import CORSMiddleware
+from loguru import logger
 
 from app.api import r_healthcheck, r_bot_webhook, r_miniapp
-
 from app.bot import BOT, DP
 from app.middleware import AllowedHosts
-
 from config import CONFIG
-from loguru import logger
 
 
 # noinspection PyUnusedLocal
@@ -47,13 +45,11 @@ async def lifespan(myapp: FastAPI):  # type: ignore
 
 
 # Список сайтов с которыми доступно взаимодействие через API
-origins = [
-    # "http://calabra.online",
-    # "https://calabra.online"
-]
+origins = []
 
 APP = FastAPI(root_path=CONFIG.project.root, lifespan=lifespan)
 APP.add_middleware(AllowedHosts)
+
 # APP.add_middleware(
 #     CORSMiddleware,
 #     allow_origins=origins,

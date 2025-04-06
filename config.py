@@ -1,4 +1,5 @@
 # Модель лоя получения настроек из .env
+
 from typing import Optional, Union, Any
 
 from pydantic import Field, SecretStr, EmailStr
@@ -96,6 +97,7 @@ class AllowedConfig(ConfigBase):
 
     ips: Any
 
+    # noinspection PyMethodParameters
     @field_validator("ips")
     def parse_items(cls, v):
 

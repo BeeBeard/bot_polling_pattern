@@ -1,6 +1,8 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import Request
 from fastapi.responses import JSONResponse
+
 from config import CONFIG
+
 
 # Кастомный middleware для проверки IP
 class AllowedHosts:
