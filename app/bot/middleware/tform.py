@@ -7,7 +7,7 @@ from aiogram import BaseMiddleware
 from app.assistant import Transform
 
 
-class CallForm(BaseMiddleware):
+class TForm(BaseMiddleware):
 
     async def __call__(
         self,
