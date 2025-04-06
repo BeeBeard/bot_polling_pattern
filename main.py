@@ -1,9 +1,13 @@
 import pprint
+import sys
 
 import uvicorn
-from app.config import CONFIG
 from loguru import logger
-import sys
+
+from app.config import CONFIG
+from app.conn.engines import CONN
+from app.conn.tables import Base
+
 
 class LogSetting:
 
@@ -63,11 +67,14 @@ def main():
     # Base.metadata.create_all(conn.engine)
 
     pprint.pprint(CONFIG.model_dump())
+    print()
+
     try:
 
-        logger.info(f"Запуск API-server")
-        logger.info(f"IP: {CONFIG.api.ip}")
-        logger.info(f"PORT: {CONFIG.api.port}")
+        logger.info(f"Подключение и настройка базы данных")
+        Base.metadata.create_all(CONN.engine)
+
+        logger.info(f"Запуск APP: {CONFIG.api.path}")
         uvicorn.run(
             app="app.app:APP",
             host=CONFIG.api.ip,
@@ -81,7 +88,7 @@ def main():
     except Exception as e:
         logger.exception(e)
     finally:
-        logger.info(f"Выключение приложения")
+        logger.info(f"Выключение APP")
 
 
 if __name__ == "__main__":
