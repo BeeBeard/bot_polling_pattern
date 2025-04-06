@@ -13,7 +13,8 @@ class AllowedHosts:
         # Получаем запрос (только для HTTP/HTTPS)
         if scope["type"] == "http":
             request = Request(scope, receive)
-            logger.info(request)
+            logger.info(request.__dict__)
+            logger.info(request.client)
 
             client_ip = request.client.host  # IP клиента
 
