@@ -14,7 +14,7 @@ templates = Jinja2Templates(directory=templates_path)
 r_miniapp = APIRouter(prefix=CONFIG.miniapp.root, tags=['MINIAPP'])
 
 
-@r_miniapp.get(f"/", response_class=HTMLResponse)
+@r_miniapp.get(CONFIG.miniapp.main_page, response_class=HTMLResponse)
 async def open_main_menu(request: Request):
     """Для проверки соединения стартовая страница miniapp"""
 

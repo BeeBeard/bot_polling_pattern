@@ -54,6 +54,7 @@ class MiniAppConfig(ConfigBase):
     secret: Optional[SecretStr] = ""    # "секрет" для безопасности miniapp
     path: str = ""
 
+    main_page: Optional[str] = "/"
     # @computed_field
     # def path(self) -> str:
     #     return self.host + self.root
