@@ -5,8 +5,8 @@ import uvicorn
 from loguru import logger
 
 from app.config import CONFIG
-from app.conn.engines import CONN
-from app.conn.tables import Base
+from app.conn import CONN
+from app.conn import tables
 
 
 class LogSetting:
@@ -72,7 +72,7 @@ def main():
     try:
 
         logger.info(f"Подключение и настройка базы данных")
-        Base.metadata.create_all(CONN.engine)
+        tables.Base.metadata.create_all(CONN.engine)
 
         logger.info(f"Запуск APP: {CONFIG.api.path}")
         uvicorn.run(
