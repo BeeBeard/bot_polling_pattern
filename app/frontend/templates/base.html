@@ -14,6 +14,10 @@
     <script>
         const tg = window.Telegram.WebApp;
         tg.ready()
+
+        if (!tg.initDataUnsafe){
+            tg.close()
+        }
         console.log(tg) // Вывод данных tg в консоль
     </script>
     {% block extra_head %}{% endblock %}
