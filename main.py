@@ -1,12 +1,13 @@
+import logging
 import pprint
 import sys
 
 import uvicorn
 from loguru import logger
 
+from app.assistant import InterruptLogger
 from app.config import CONFIG
-from app.conn import CONN
-from app.conn import tables
+from app.conn import CONN, tables
 
 
 class LogSetting:
@@ -46,6 +47,15 @@ logger.add("logs/info/info.log", format=LogSetting.INFO, level="INFO", rotation=
 logger.add("logs/debug/debug.log", format=LogSetting.ELSE, level="DEBUG", rotation="06:00", compression="zip")
 logger.add("logs/error/error.log", format=LogSetting.ELSE, level="ERROR", rotation="06:00", compression="zip",
            backtrace=True, diagnose=True, catch=True)
+
+
+# Отключаем стандартные логи Uvicorn
+logging.getLogger("uvicorn").handlers.clear()
+logging.getLogger("uvicorn.access").handlers.clear()
+
+# Применяем перехватчик
+logging.basicConfig(handlers=[InterruptLogger()], level=0)
+
 
 @logger.catch
 def main():
