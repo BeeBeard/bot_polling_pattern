@@ -110,7 +110,7 @@ class DatabaseConfig(ConfigBase):
 class AllowedConfig(ConfigBase):
     model_config = SettingsConfigDict(env_prefix="allowed_")
 
-    ips: Any
+    ips: Optional[Any] = None
 
     # noinspection PyMethodParameters
     @field_validator("ips")
