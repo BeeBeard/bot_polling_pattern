@@ -1,6 +1,6 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
-
+from loguru import logger
 from app.config import CONFIG
 
 
@@ -13,6 +13,8 @@ class AllowedHosts:
         # Получаем запрос (только для HTTP/HTTPS)
         if scope["type"] == "http":
             request = Request(scope, receive)
+            logger.info(request)
+
             client_ip = request.client.host  # IP клиента
 
             # Если IP не разрешен — блокируем запрос
